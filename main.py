@@ -13,10 +13,8 @@ pool_table = pool.Pool(window_size)
 
 c = pygame.time.Clock()
 are_balls_moving = True
-time_holding = 0
 while True:
     dt = c.tick(120)/16.67
-    print(dt)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
@@ -27,7 +25,6 @@ while True:
             pool_table.ScaleBalls(previous_size)
         if event.type == pygame.MOUSEBUTTONUP:
             if event.button == 1:
-                time_holding = 0
                 if not are_balls_moving:
                     mouse_x, mouse_y = pygame.mouse.get_pos()
                     mouse_x -= (window_size[0] - pool_table_size[0]) / 2
