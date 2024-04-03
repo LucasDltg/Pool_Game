@@ -1,0 +1,8 @@
+brown = (88, 57, 39)
+brown_queue = (35, 23, 9)
+green_pool = (10, 108, 3)
+green_band = (20, 216, 6)
+black = (0, 0, 0)
+yellow = (255, 255, 0)
+red = (255, 0, 0)
+gray_angle = (200, 200, 200)
