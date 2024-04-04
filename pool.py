@@ -14,6 +14,7 @@ class Pool:
         self.holes = []     # (centerX, centerY, radius)
 
         self.ScalePoolTable(size)
+        self.ball_diameter = self.height * 0.0417
         self.InitBalls()
 
     def InitBalls(self) -> None:
@@ -22,7 +23,7 @@ class Pool:
         :return:
         """
         colors = [red, red, yellow, yellow, black, red, red, yellow, red, yellow, yellow, red, yellow, yellow, red]
-        diameter = self.height / 26
+        diameter = self.ball_diameter
 
         y = self.height / 2 - diameter / 2  # middle of the table
         x = self.width / 4
@@ -37,23 +38,25 @@ class Pool:
         self.balls.append(ball.Ball(self.width * 3 / 4, self.height / 2 - diameter / 2, -10, 0, size=diameter, color=(255, 255, 255)))
 
     def ScaleBalls(self, previous_size) -> None:
-        radius = self.height / 26
+        self.ball_diameter = self.height * 0.0417
         for b in self.balls:
             b.x_pos = b.x_pos / previous_size[0] * self.width
             b.y_pos = b.y_pos / previous_size[1] * self.height
-            b.size = radius
+            b.size = self.ball_diameter
             b.x_speed = b.x_speed / previous_size[0] * self.width
             b.y_speed = b.y_speed / previous_size[1] * self.height
 
     def ScalePoolTable(self, window_size) -> None:
         width = window_size[0] * 8 / 10
         height = width * 9 / 16
-        border_size = height * 1 / 16
+        border_size = height * 0.08
         border_radius = int(border_size / 4 * 3)
-        band_width = int(border_size / 4)
-        hole_diameter = height / 16  # same as border size
-        hole_offset = 1
+        band_width = height * 0.038
+        hole_diameter = height * 0.075
+        hole_offset = 0
         plate_size = border_size + hole_diameter / 3 * 2
+        r_side = width * 0.038
+        r_center = width * 0.024
 
         self.pool_table = pygame.surface.Surface((width, height))
         self.width = width
@@ -75,6 +78,7 @@ class Pool:
         pygame.draw.rect(self.pool_table, gray_angle,
                          pygame.Rect(width - plate_size, height - plate_size, plate_size, plate_size),
                          border_bottom_right_radius=border_radius)
+        # draw carpet
         pygame.draw.rect(self.pool_table, green_pool,
                          pygame.Rect(border_size, border_size, width - border_size * 2, height - border_size * 2))
 
@@ -86,12 +90,12 @@ class Pool:
         x1 = border_size
         x2 = border_size + band_width
         x3 = border_size + hole_diameter / 2
-        x4 = border_size + hole_diameter / 2 + band_width
-        x5 = (width - hole_diameter) / 2 - band_width / 2
+        x4 = border_size + hole_diameter / 2 + r_side
+        x5 = (width - hole_diameter) / 2 - r_center / 2
         x6 = (width - hole_diameter) / 2
         x7 = (width + hole_diameter) / 2
-        x8 = (width + hole_diameter) / 2 + band_width / 2
-        x9 = width - border_size - hole_diameter / 2 - band_width
+        x8 = (width + hole_diameter) / 2 + r_center / 2
+        x9 = width - border_size - hole_diameter / 2 - r_side
         x10 = width - border_size - hole_diameter / 2
         x11 = width - border_size - band_width
         x12 = width - border_size
@@ -99,8 +103,8 @@ class Pool:
         y1 = border_size
         y2 = border_size + band_width
         y3 = border_size + hole_diameter / 2
-        y4 = border_size + hole_diameter / 2 + band_width
-        y5 = height - border_size - hole_diameter / 2 - band_width
+        y4 = border_size + hole_diameter / 2 + r_side
+        y5 = height - border_size - hole_diameter / 2 - r_side
         y6 = height - border_size - hole_diameter / 2
         y7 = height - border_size - band_width
         y8 = height - border_size

@@ -4,6 +4,7 @@ import pool
 from color import *
 import math
 
+POWER = 0.03
 window_size = [window_width, window_height] = [600, 600]
 
 pygame.init()
@@ -33,8 +34,8 @@ while True:
                     diff_x = mouse_x - (pool_table.balls[-1].x_pos + pool_table.balls[-1].size / 2)
                     diff_y = mouse_y - (pool_table.balls[-1].y_pos + pool_table.balls[-1].size / 2)
 
-                    pool_table.balls[-1].x_speed = -0.01 * diff_x
-                    pool_table.balls[-1].y_speed = -0.01 * diff_y
+                    pool_table.balls[-1].x_speed = -POWER * diff_x
+                    pool_table.balls[-1].y_speed = -POWER * diff_y
                     are_balls_moving = True
 
     # update game state
