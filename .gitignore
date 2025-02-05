@@ -1,4 +1,6 @@
 # pycache
 __pycache__/
-# .idea
-.idea/
+# .
+.*
+#cov
+htmlcov
